@@ -17,6 +17,7 @@ namespace winform
         private int nRow;//行数
         private int nCol;//列数
         private int nMine;  //全部地雷数
+        int integer;
 
         private const int MAX_COL = 64;
         private const int MAX_ROW = 32;
