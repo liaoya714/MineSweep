@@ -17,7 +17,6 @@ namespace winform
         private int nRow;//行数
         private int nCol;//列数
         private int nMine;  //全部地雷数
-        int integer;
 
         private const int MAX_COL = 64;
         private const int MAX_ROW = 32;
@@ -63,10 +62,12 @@ namespace winform
 
         private void StartGame()
         {
+            startTimeer = false;
             markOfMine = nMine;
             MouseFocus.X = MouseFocus.Y = -1;
 
             MineLabel.Text = markOfMine.ToString();
+            time = 0;
             timeLabel.Text = "0";
             computeCell();
             updateFormSize();
@@ -115,7 +116,7 @@ namespace winform
                 {
                     Rectangle Rect = new Rectangle(X + j * 32, Y + i * 32, 30, 30);
                     if (stateOfCell[i, j] == 0)//未点击过
-                    {
+                    {  
                         if (j == MouseFocus.X && i == MouseFocus.Y)//鼠标悬停
                             graph.FillRectangle(Brushes.SkyBlue, Rect);
                         else
@@ -216,6 +217,10 @@ namespace winform
         {
             if(mouseLeft && mouseRight)
             {
+                //if(stateOfCell[MouseFocus.Y, MouseFocus.X] == 1)
+                
+
+                
 
             }//Something to be done
             else if(mouseLeft)
@@ -236,7 +241,6 @@ namespace winform
                 }
                 else if(numOfMine[MouseFocus.Y, MouseFocus.X] == -1)//点到地雷
                 {
-                    stateOfCell[MouseFocus.Y, MouseFocus.X] = 4;
                     LostGame();//Lost
                 }
                 else
@@ -316,6 +320,8 @@ namespace winform
                 for (int j = 0; j < nCol; j++)
                     if (numOfMine[i, j] == -1)
                         stateOfCell[i, j] = 1;
+            stateOfCell[MouseFocus.Y, MouseFocus.X] = 4;
+
             
             timer.Stop();
             this.Refresh();
