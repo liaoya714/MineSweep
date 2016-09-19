@@ -31,14 +31,12 @@ namespace winform
 
         public int nROW//c# 属性
         {
-            get { return nRow; }
-            set { nRow = value; }
+            get; set;
         }
 
         public int nCOL
         {
-            get { return nCol; }
-            set { nCol = value; }
+            get; set;
         }
 
         public int nMINE
@@ -215,14 +213,24 @@ namespace winform
 
         private void Form_main_MouseUp(object sender, MouseEventArgs e)
         {
-            if(mouseLeft && mouseRight)
+            if(mouseLeft && mouseRight)//自动打开作为区域并标记雷
             {
-                //if(stateOfCell[MouseFocus.Y, MouseFocus.X] == 1)
-                
-
-                
-
-            }//Something to be done
+                int[] dr = new int[] { 0, -1, -1, -1, 0, 1, 1, 1};
+                int[] dc = new int[] { -1, -1, 0, 1, 1, 1, 0, -1};
+                if(stateOfCell[MouseFocus.Y, MouseFocus.X] == 1)
+                {
+                    for(int i = 0; i < 8; i++)
+                    {
+                        int row = MouseFocus.Y+ dr[i], col = MouseFocus.X+ dc[i];
+                        if (row >= nRow || row < 0 || col >= nCol || col < 0)
+                            continue;
+                        if (numOfMine[row, col] == -1)
+                            stateOfCell[row, col] = 2;
+                        else
+                            stateOfCell[row, col] = 1;
+                    }
+                }
+            }
             else if(mouseLeft)
             {
                 if (startTimeer == false)//计时开始
