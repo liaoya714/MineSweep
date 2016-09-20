@@ -46,6 +46,8 @@ namespace winform
             nRow = Properties.Settings.Default.nRow;//settings中设置的默认值
             nCol = Properties.Settings.Default.nCol;
             nMine = Properties.Settings.Default.nMine;
+            nROW = nRow;//c#自动属性
+            nCOL = nCol;
 
             StartGame();
         }
