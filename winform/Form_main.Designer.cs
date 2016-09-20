@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_main));
             this.timeLabel = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip_main = new System.Windows.Forms.MenuStrip();
@@ -56,7 +57,7 @@
             this.timeLabel.Font = new System.Drawing.Font("宋体", 22F);
             this.timeLabel.Location = new System.Drawing.Point(239, 0);
             this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(115, 55);
+            this.timeLabel.Size = new System.Drawing.Size(115, 48);
             this.timeLabel.TabIndex = 0;
             this.timeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -159,6 +160,7 @@
             // tableLayoutPanel_main
             // 
             this.tableLayoutPanel_main.AllowDrop = true;
+            this.tableLayoutPanel_main.BackColor = System.Drawing.SystemColors.Window;
             this.tableLayoutPanel_main.ColumnCount = 3;
             this.tableLayoutPanel_main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.56338F));
             this.tableLayoutPanel_main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.91483F));
@@ -171,15 +173,15 @@
             this.tableLayoutPanel_main.Name = "tableLayoutPanel_main";
             this.tableLayoutPanel_main.RowCount = 1;
             this.tableLayoutPanel_main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel_main.Size = new System.Drawing.Size(357, 55);
+            this.tableLayoutPanel_main.Size = new System.Drawing.Size(357, 48);
             this.tableLayoutPanel_main.TabIndex = 3;
             // 
             // startAgain
             // 
-            this.startAgain.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.startAgain.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startAgain.Location = new System.Drawing.Point(129, 0);
             this.startAgain.Name = "startAgain";
-            this.startAgain.Size = new System.Drawing.Size(104, 55);
+            this.startAgain.Size = new System.Drawing.Size(104, 48);
             this.startAgain.TabIndex = 4;
             this.startAgain.Text = "StartAgain";
             this.startAgain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -191,7 +193,7 @@
             this.MineLabel.Location = new System.Drawing.Point(3, 0);
             this.MineLabel.Name = "MineLabel";
             this.MineLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.MineLabel.Size = new System.Drawing.Size(120, 55);
+            this.MineLabel.Size = new System.Drawing.Size(120, 48);
             this.MineLabel.TabIndex = 2;
             this.MineLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -204,6 +206,7 @@
             this.Controls.Add(this.tableLayoutPanel_main);
             this.Controls.Add(this.menuStrip_main);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip_main;
             this.MaximizeBox = false;
             this.Name = "Form_main";

@@ -29,23 +29,15 @@ namespace winform
 
         private bool startTimeer;
 
-        public int nROW//c# 属性
-        {
-            get; set;
-        }
-
-        public int nCOL
-        {
-            get; set;
-        }
+        //c# 属性
+        public int nROW { get; set; }
+        public int nCOL { get; set; }
 
         public int nMINE
         {
             get { return nMine; }
             set { nMine = value; }
         }
-
-            
 
         public Form_main()
         {
@@ -126,40 +118,42 @@ namespace winform
                         String number = "";
 
                         graph.FillRectangle(Brushes.Lavender, Rect);//背景
-                        switch (numOfMine[i, j])
+                        if (numOfMine[i, j] != -1)
                         {
-                            case 0: brush = Brushes.AliceBlue; number = ""; break;
-                            case 1: brush = Brushes.Gray; number = numOfMine[i, j].ToString(); break;
-                            case 2: brush = Brushes.Chocolate; number = numOfMine[i, j].ToString(); break;
-                            case 3: brush = Brushes.Blue; number = numOfMine[i, j].ToString(); break;
-                            case 4: brush = Brushes.DarkViolet; number = numOfMine[i, j].ToString(); break;
-                            case 5: brush = Brushes.Green; number = numOfMine[i, j].ToString(); break;
-                            case 6: brush = Brushes.DarkBlue; number = numOfMine[i, j].ToString(); break;
-                            case 7: brush = Brushes.Black; number = numOfMine[i, j].ToString(); break;
-                            case 8: brush = Brushes.DarkOrange; number = numOfMine[i, j].ToString(); break;
-                            case -1: brush = Brushes.DarkRed; number = "Bo"; break;
+                            switch (numOfMine[i, j])
+                            {
+                                case 0: brush = Brushes.AliceBlue; number = ""; break;
+                                case 1: brush = Brushes.Gray; number = numOfMine[i, j].ToString(); break;
+                                case 2: brush = Brushes.Chocolate; number = numOfMine[i, j].ToString(); break;
+                                case 3: brush = Brushes.Blue; number = numOfMine[i, j].ToString(); break;
+                                case 4: brush = Brushes.DarkViolet; number = numOfMine[i, j].ToString(); break;
+                                case 5: brush = Brushes.Green; number = numOfMine[i, j].ToString(); break;
+                                case 6: brush = Brushes.DarkBlue; number = numOfMine[i, j].ToString(); break;
+                                case 7: brush = Brushes.Black; number = numOfMine[i, j].ToString(); break;
+                                case 8: brush = Brushes.DarkOrange; number = numOfMine[i, j].ToString(); break;
+                            }
+                            graph.DrawString(number, new Font("Consolas", 16), brush, X + j * 32 + 5, Y + i * 32);
                         }
-                        graph.DrawString(number, new Font("Consolas", 16), brush, X + j * 32 + 5, Y + i * 32);
+                        else
+                            graph.DrawImage(Properties.Resources.mine, X + j * 32, Y + i * 32, 30, 30);
 
                     }
 
                     else if (stateOfCell[i, j] == 2)//标记雷
                     {
                         graph.FillRectangle(Brushes.CadetBlue, Rect);
-                        graph.DrawString("☢", new Font("Consolas", 18), Brushes.DarkRed, X + j * 32, Y + i * 32);
+                        graph.DrawImage(Properties.Resources.flag, X + j * 32, Y + i * 32, 30, 30);
                     }
 
                     else if (stateOfCell[i, j] == 3)//标问号
                     {
                         graph.FillRectangle(Brushes.CadetBlue, Rect);
-                        graph.DrawString("？", new Font("Consolas", 22), Brushes.DarkOrchid, X + j * 32, Y + i * 32);
+                        graph.DrawString("？", new Font("Consolas", 22), Brushes.DarkRed, X + j * 32, Y + i * 32);
                     }
                     else if (stateOfCell[i, j] == 4)//点到的地雷背景色
                     {
                         graph.FillRectangle(Brushes.Brown, Rect);
-                        graph.DrawString("Bo", new Font("Consolas", 16), Brushes.DarkRed , X + j * 32 + 5, Y + i * 32);
-
-
+                        graph.DrawImage(Properties.Resources.mine, X + j * 32, Y + i * 32, 30, 30);
                     }
                 }
             }
@@ -224,8 +218,14 @@ namespace winform
                         int row = MouseFocus.Y+ dr[i], col = MouseFocus.X+ dc[i];
                         if (row >= nRow || row < 0 || col >= nCol || col < 0)
                             continue;
-                        if (numOfMine[row, col] == -1)
+
+                        if (stateOfCell[row, col] == 2)//若已标记则忽略
+                            continue;
+                        else if (numOfMine[row, col] == -1)//若是地雷则标记
+                        {
                             stateOfCell[row, col] = 2;
+                            MineLabel.Text = (--markOfMine).ToString();
+                        }
                         else
                             stateOfCell[row, col] = 1;
                     }
@@ -240,7 +240,6 @@ namespace winform
 
                     startTimeer = true;
                     timer.Start();
-                    
                 }
 
                 if (numOfMine[MouseFocus.Y, MouseFocus.X] == 0)//无雷区
